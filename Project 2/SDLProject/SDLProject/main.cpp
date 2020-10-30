@@ -5,6 +5,7 @@
 #endif
 
 #define GL_GLEXT_PROTOTYPES 1
+#include <SDL_mixer.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include "glm/mat4x4.hpp"
@@ -37,9 +38,11 @@ glm::vec3 ball_position = glm::vec3(0,0,0);
 
 float player_speed = 2.5;
 
+Mix_Music *music;
+Mix_Chunk *bounce;
 
 void Initialize() {
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
     displayWindow = SDL_CreateWindow("Project 2!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_OPENGL);
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
@@ -51,7 +54,13 @@ void Initialize() {
     glViewport(0, 0, 640*2, 480*2);
     
     program.Load("shaders/vertex.glsl", "shaders/fragment.glsl");
-
+    
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    music = Mix_LoadMUS("dooblydoo.mp3");
+    Mix_PlayMusic(music, -1);
+    
+    bounce = Mix_LoadWAV("bounce.wav");
+    
     viewMatrix = glm::mat4(1.0f);
     modelMatrix = glm::mat4(1.0f);
     modelMatrix_player2 = glm::mat4(1.0f);
@@ -87,6 +96,7 @@ void Initialize() {
         ball_x = 1;
         ball_y = -1;
     }
+    
 
 }
 
@@ -192,7 +202,7 @@ void Update() {
 
         
     }
-    
+        
     
 }
 
