@@ -67,7 +67,7 @@ void Initialize() {
     glewInit();
 #endif
     
-    glViewport(0, 0, 640*2, 2*480);
+    glViewport(0, 0, 640, 480);
     
     program.Load("shaders/vertex_textured.glsl", "shaders/fragment_textured.glsl");
     
