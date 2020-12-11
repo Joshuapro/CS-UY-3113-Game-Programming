@@ -2,7 +2,7 @@
 #include "Level2.h"
 
 #define  Level2_OBJECT_COUNT 1
-#define LEVEL2_ENEMY_COUNT 30
+#define LEVEL2_ENEMY_COUNT 60
 
 
 
@@ -19,6 +19,7 @@ void Level2::Initialize() {
     state.player->acceleration = glm::vec3(0, 0, 0);
     state.player->speed = 1.0f;
     state.player->lives = 3;
+    state.player->enemiesKilled = 0;
     
     state.objects = new Entity[Level2_OBJECT_COUNT];
 
@@ -38,9 +39,10 @@ void Level2::Initialize() {
     for (int i = 0; i<LEVEL2_ENEMY_COUNT; i++){
         state.enemies[i].billboard = true;
         state.enemies[i].textureID = enemyTextureID;
+        state.enemies[i].enemySpeed = -3.0;
         int selector = rand() % 4;
-        int xval = rand() % 20 + 10;
-        int zval = rand() % 20 + 10;
+        int xval = rand() % 40 + 20;
+        int zval = rand() % 40 + 20;
         if (selector){
             xval *= -1;
             zval *= -1;

@@ -32,6 +32,8 @@ public:
     
     float speed;
     
+    float enemySpeed;
+    float enemiesKilled;
     
     bool gameEnd = false;
     bool billboard;

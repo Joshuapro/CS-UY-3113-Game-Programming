@@ -39,8 +39,8 @@ void Entity::Update(float deltaTime, Entity *player, Entity *objects, int object
         rotation.y = glm::degrees(atan2f(directionX, directionZ));
         
         if (entityType == ENEMY){
-            velocity.z = cos(glm::radians(rotation.y)) * -3.0f;
-            velocity.x = sin(glm::radians(rotation.y)) * -3.0f;
+            velocity.z = cos(glm::radians(rotation.y)) * enemySpeed;
+            velocity.x = sin(glm::radians(rotation.y)) * enemySpeed;
         }
     }
     
@@ -57,6 +57,7 @@ void Entity::Update(float deltaTime, Entity *player, Entity *objects, int object
                 if (enemies[i].alive){
                     alive = false;
                     enemies[i].alive = false;
+                    player->enemiesKilled++;
                 }
             }
         }
@@ -79,6 +80,7 @@ void Entity::Update(float deltaTime, Entity *player, Entity *objects, int object
             if (CheckCollision(&enemies[i]) and enemies[i].alive){
                 lives--;
                 enemies[i].alive = false;
+                
             }
         }
     }

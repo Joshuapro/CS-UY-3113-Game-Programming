@@ -18,6 +18,7 @@
 #include "Scene.h"
 #include "Level1.h"
 #include "Level2.h"
+#include "MenuScreen.h"
 
 
 
@@ -27,7 +28,8 @@ bool gameIsRunning = true;
 ShaderProgram program;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
 
-Scene *sceneList[2];
+Scene *sceneList[3];
+
 
 
 //struct GameState {
@@ -68,6 +70,8 @@ void Initialize() {
     
     glUseProgram(program.programID);
     
+    glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
+    
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_DEPTH_TEST);
@@ -75,10 +79,10 @@ void Initialize() {
     glDepthFunc(GL_LEQUAL);
 
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     
-    sceneList[0] = new Level1();
-    sceneList[1] = new Level2();
+    sceneList[0] = new MenuScreen();
+    sceneList[1] = new Level1();
+    sceneList[2] = new Level2();
     SwitchToScene(sceneList[0]);
     
 }
@@ -107,7 +111,6 @@ void ProcessInput() {
                         bullet->velocity.x = sin(glm::radians(currentScene->state.player->rotation.y)) * -10.0f;
                         currentScene->state.bullets.push_back(bullet);
                         break;
-                        
                 }
                 break;
         }
@@ -152,6 +155,9 @@ void Update() {
         currentScene->Update(FIXED_TIMESTEP);
         
         deltaTime -= FIXED_TIMESTEP;
+    }
+    if (currentScene->state.player->enemiesKilled == 10){
+        SwitchToScene(sceneList[1]);
     }
     
     accumulator = deltaTime;

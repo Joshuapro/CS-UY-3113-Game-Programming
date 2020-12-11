@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		992CA1592578A31C00992E09 /* crate1_diffuse.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 992CA1582578A30E00992E09 /* crate1_diffuse.png */; };
+		99A75E5B2584011300ADC551 /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99A75E592584011300ADC551 /* MenuScreen.cpp */; };
+		99A75E5F2584050200ADC551 /* font1.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99A75E5E258404EB00ADC551 /* font1.png */; };
 		99AC0551257F2DED0071B807 /* cube.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99AC053E257F2DA50071B807 /* cube.obj */; };
 		99AC0554257F462A0071B807 /* floor.JPG in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99AC0553257F46160071B807 /* floor.JPG */; };
 		99AC0557257F59FF0071B807 /* ctg.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99AC0556257F59FA0071B807 /* ctg.png */; };
@@ -40,6 +42,7 @@
 				99AC0557257F59FF0071B807 /* ctg.png in CopyFiles */,
 				99AC055E258010D90071B807 /* grass.JPG in CopyFiles */,
 				99AC0554257F462A0071B807 /* floor.JPG in CopyFiles */,
+				99A75E5F2584050200ADC551 /* font1.png in CopyFiles */,
 				992CA1592578A31C00992E09 /* crate1_diffuse.png in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,6 +51,9 @@
 
 /* Begin PBXFileReference section */
 		992CA1582578A30E00992E09 /* crate1_diffuse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crate1_diffuse.png; sourceTree = "<group>"; };
+		99A75E592584011300ADC551 /* MenuScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
+		99A75E5A2584011300ADC551 /* MenuScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
+		99A75E5E258404EB00ADC551 /* font1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font1.png; sourceTree = "<group>"; };
 		99AC053E257F2DA50071B807 /* cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
 		99AC0553257F46160071B807 /* floor.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = floor.JPG; sourceTree = "<group>"; };
 		99AC0556257F59FA0071B807 /* ctg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ctg.png; sourceTree = "<group>"; };
@@ -125,6 +131,7 @@
 				DB4C61F9236CE8FD0096309D /* Entity.cpp */,
 				DB4C61FA236CE8FD0096309D /* Entity.h */,
 				99AC0553257F46160071B807 /* floor.JPG */,
+				99A75E5E258404EB00ADC551 /* font1.png */,
 				DB1BA2932378E51A001F1FBC /* Mesh.cpp */,
 				DB1BA2942378E51A001F1FBC /* Mesh.h */,
 				DB1BA2962378E7A5001F1FBC /* Util.cpp */,
@@ -136,6 +143,8 @@
 				99AC05652580183E0071B807 /* Scene.cpp */,
 				99AC05662580183E0071B807 /* Scene.h */,
 				99AC053E257F2DA50071B807 /* cube.obj */,
+				99A75E592584011300ADC551 /* MenuScreen.cpp */,
+				99A75E5A2584011300ADC551 /* MenuScreen.h */,
 				99AC0556257F59FA0071B807 /* ctg.png */,
 			);
 			path = SDLProject;
@@ -210,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBDF1B532323DE3F007CECB1 /* main.cpp in Sources */,
+				99A75E5B2584011300ADC551 /* MenuScreen.cpp in Sources */,
 				99AC05672580183E0071B807 /* Scene.cpp in Sources */,
 				DB4C61FB236CE8FD0096309D /* Entity.cpp in Sources */,
 				99AC0563258018170071B807 /* Level1.cpp in Sources */,

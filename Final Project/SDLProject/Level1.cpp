@@ -9,7 +9,7 @@
 #include "Level1.h"
 
 #define OBJECT_COUNT 1
-#define LEVEL1_ENEMY_COUNT 30   
+#define LEVEL1_ENEMY_COUNT 10
 
 
 
@@ -26,6 +26,7 @@ void Level1::Initialize() {
     state.player->acceleration = glm::vec3(0, 0, 0);
     state.player->speed = 1.0f;
     state.player->lives = 3;
+    state.player->enemiesKilled = 0;
     
     state.objects = new Entity[OBJECT_COUNT];
     
@@ -45,10 +46,11 @@ void Level1::Initialize() {
     for (int i = 0; i<LEVEL1_ENEMY_COUNT; i++){
         state.enemies[i].billboard = true;
         state.enemies[i].textureID = enemyTextureID;
-        state.enemies[i].position = glm::vec3(rand() % 40 - 10, 0.5, -(rand() % 10) - 60);
+        state.enemies[i].position = glm::vec3(rand() % 40 - 10, 0.5, -(rand() % 30) - 80);
         state.enemies[i].rotation = glm::vec3(0, 0, 0);
         state.enemies[i].acceleration = glm::vec3(0, 0, 0);
         state.enemies[i].entityType = ENEMY;
+        state.enemies[i].enemySpeed = -4.5;
     }
 
     
