@@ -45,20 +45,7 @@ void Level1::Initialize() {
     for (int i = 0; i<LEVEL1_ENEMY_COUNT; i++){
         state.enemies[i].billboard = true;
         state.enemies[i].textureID = enemyTextureID;
-//        int selector = rand() % 4;
-//        int xval = rand() % 10 + 10;
-//        int zval = rand() % 10 + 10;
-//        if (selector){
-//            xval *= -1;
-//            zval *= -1;
-//        }
-//        if (selector == 2){
-//            xval *= -1;
-//        }
-//        if (selector == 3){
-//            zval *= -1;
-//        }
-        state.enemies[i].position = glm::vec3(rand() % 40 - 10, 0.5, -(rand() % 5) - 50);
+        state.enemies[i].position = glm::vec3(rand() % 40 - 10, 0.5, -(rand() % 10) - 60);
         state.enemies[i].rotation = glm::vec3(0, 0, 0);
         state.enemies[i].acceleration = glm::vec3(0, 0, 0);
         state.enemies[i].entityType = ENEMY;

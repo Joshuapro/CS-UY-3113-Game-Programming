@@ -1,5 +1,6 @@
 #include "Entity.h"
 
+
 Entity::Entity()
 {
     position = glm::vec3(0);
@@ -38,12 +39,19 @@ void Entity::Update(float deltaTime, Entity *player, Entity *objects, int object
         rotation.y = glm::degrees(atan2f(directionX, directionZ));
         
         if (entityType == ENEMY){
-            velocity.z = cos(glm::radians(rotation.y)) * -5.0f;
-            velocity.x = sin(glm::radians(rotation.y)) * -5.0f;
+            velocity.z = cos(glm::radians(rotation.y)) * -3.0f;
+            velocity.x = sin(glm::radians(rotation.y)) * -3.0f;
         }
     }
     
     if(entityType == BULLET){
+        float zSquare = (pow(player->position.z - position.z,2));
+        float xSquare = (pow(player->position.x - position.x,2));
+        
+        if(sqrt(xSquare + zSquare) >= 10){
+            alive = false;
+        }
+        
         for (int i = 0; i<enemyCount; i++){
             if (CheckCollision(&enemies[i]) and alive){
                 if (enemies[i].alive){

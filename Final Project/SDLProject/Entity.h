@@ -14,6 +14,7 @@
 #include "ShaderProgram.h"
 
 #include "Mesh.h"
+#include <cmath>
 
 enum EntityType { PLAYER, PLATFORM, ENEMY, CUBE,SHIP, FLOOR,CRATE, BULLET};
 
