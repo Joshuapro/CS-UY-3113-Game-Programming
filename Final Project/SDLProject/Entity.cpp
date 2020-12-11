@@ -14,8 +14,6 @@ Entity::Entity()
     depth = 1.0f;
     billboard = false;
     alive = true;
-    
-    speed = 0.0f;
 }
 
 bool Entity::CheckCollision(Entity *other){
@@ -38,7 +36,7 @@ void Entity::Update(float deltaTime, Entity *player, Entity *objects, int object
         float directionZ = position.z - player->position.z;
         rotation.y = glm::degrees(atan2f(directionX, directionZ));
         
-        if (entityType == ENEMY){
+        if (entityType == ENEMY and not noMove){
             velocity.z = cos(glm::radians(rotation.y)) * enemySpeed;
             velocity.x = sin(glm::radians(rotation.y)) * enemySpeed;
         }
@@ -80,7 +78,7 @@ void Entity::Update(float deltaTime, Entity *player, Entity *objects, int object
             if (CheckCollision(&enemies[i]) and enemies[i].alive){
                 lives--;
                 enemies[i].alive = false;
-                
+                enemiesKilled++;
             }
         }
     }

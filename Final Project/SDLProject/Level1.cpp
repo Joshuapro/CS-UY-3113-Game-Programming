@@ -9,7 +9,7 @@
 #include "Level1.h"
 
 #define OBJECT_COUNT 1
-#define LEVEL1_ENEMY_COUNT 10
+#define LEVEL1_ENEMY_COUNT 50
 
 
 
@@ -24,13 +24,13 @@ void Level1::Initialize() {
     state.player->entityType = PLAYER;
     state.player->position = glm::vec3(0, 0.5f, 0);
     state.player->acceleration = glm::vec3(0, 0, 0);
-    state.player->speed = 1.0f;
+    state.player->speed = 4.0f;
     state.player->lives = 3;
     state.player->enemiesKilled = 0;
     
     state.objects = new Entity[OBJECT_COUNT];
     
-    GLuint floorTextureID = Util::LoadTexture("grass.jpg");
+    GLuint floorTextureID = Util::LoadTexture("ground.jpg");
     Mesh *cubeMesh = new Mesh();
     cubeMesh->LoadOBJ("cube.obj",20);
     
@@ -39,10 +39,10 @@ void Level1::Initialize() {
     state.objects[0].position = glm::vec3(0,-0.35,0);
     state.objects[0].entityType = FLOOR;
     state.objects[0].rotation = glm::vec3(0,0,0);
-    state.objects[0].scale = glm::vec3(100,0.5,100);
+    state.objects[0].scale = glm::vec3(150,0.5,150);
     
     state.enemies = new Entity[LEVEL1_ENEMY_COUNT];
-    GLuint enemyTextureID = Util::LoadTexture("ctg.png");
+    GLuint enemyTextureID = Util::LoadTexture("keiko.png");
     for (int i = 0; i<LEVEL1_ENEMY_COUNT; i++){
         state.enemies[i].billboard = true;
         state.enemies[i].textureID = enemyTextureID;

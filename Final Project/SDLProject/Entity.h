@@ -42,7 +42,7 @@ public:
     float depth;
     int lives;
     bool alive = true;
-
+    bool noMove = false;
     
     GLuint textureID;
     

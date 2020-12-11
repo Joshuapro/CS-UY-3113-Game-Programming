@@ -1,15 +1,22 @@
+//
+//  TutorialLevel.cpp
+//  SDLProject
+//
+//  Created by Joshua Young on 12/11/20.
+//  Copyright © 2020 ctg. All rights reserved.
+//
 
-#include "Level2.h"
+#include "TutorialLevel.h"
 
-#define  Level2_OBJECT_COUNT 1
-#define LEVEL2_ENEMY_COUNT 30
-
-
+#define OBJECT_COUNT 1
+#define ENEMY_COUNT 10
 
 
 
 
-void Level2::Initialize() {
+
+
+void TutorialLevel::Initialize() {
     
     state.nextScene = -1;
     
@@ -17,32 +24,31 @@ void Level2::Initialize() {
     state.player->entityType = PLAYER;
     state.player->position = glm::vec3(0, 0.5f, 0);
     state.player->acceleration = glm::vec3(0, 0, 0);
-    state.player->speed = 4.0f;
+    state.player->speed = 4;
     state.player->lives = 3;
     state.player->enemiesKilled = 0;
     
-    state.objects = new Entity[Level2_OBJECT_COUNT];
-
-    GLuint floorTextureID = Util::LoadTexture("blue.png");
+    state.objects = new Entity[OBJECT_COUNT];
+    
+    GLuint floorTextureID = Util::LoadTexture("grass.jpg");
     Mesh *cubeMesh = new Mesh();
     cubeMesh->LoadOBJ("cube.obj",20);
-
+    
     state.objects[0].textureID = floorTextureID;
     state.objects[0].mesh = cubeMesh;
     state.objects[0].position = glm::vec3(0,-0.35,0);
     state.objects[0].entityType = FLOOR;
     state.objects[0].rotation = glm::vec3(0,0,0);
     state.objects[0].scale = glm::vec3(100,0.5,100);
-
-    state.enemies = new Entity[LEVEL2_ENEMY_COUNT];
+    
+    state.enemies = new Entity[ENEMY_COUNT];
     GLuint enemyTextureID = Util::LoadTexture("keiko.png");
-    for (int i = 0; i<LEVEL2_ENEMY_COUNT; i++){
+    for (int i = 0; i<ENEMY_COUNT; i++){
         state.enemies[i].billboard = true;
         state.enemies[i].textureID = enemyTextureID;
-        state.enemies[i].enemySpeed = -2.0;
         int selector = rand() % 4;
-        int xval = rand() % 40 + 20;
-        int zval = rand() % 40 + 20;
+        int xval = rand() % 5 + 5;
+        int zval = rand() % 5 + 5;
         if (selector){
             xval *= -1;
             zval *= -1;
@@ -54,24 +60,24 @@ void Level2::Initialize() {
             zval *= -1;
         }
         state.enemies[i].position = glm::vec3(xval, 0.5, zval);
-        state.enemies[i].rotation = glm::vec3(0, 0, 0);
-        state.enemies[i].acceleration = glm::vec3(0, 0, 0);
         state.enemies[i].entityType = ENEMY;
+        state.enemies[i].enemySpeed = -4.5;
+        state.enemies[i].noMove = true;
     }
 
     
 }
 
 
-void Level2::Update(float deltaTime) {
-    state.player->Update(deltaTime, state.player, state.objects, Level2_OBJECT_COUNT,state.enemies,LEVEL2_ENEMY_COUNT);
-    state.objects[0].Update(deltaTime, state.player, state.objects, Level2_OBJECT_COUNT, state.enemies,LEVEL2_ENEMY_COUNT);
-    for (int i = 0; i< LEVEL2_ENEMY_COUNT; i++){
-        state.enemies[i].Update(deltaTime, state.player, state.objects, Level2_OBJECT_COUNT, state.enemies,LEVEL2_ENEMY_COUNT);
+void TutorialLevel::Update(float deltaTime) {
+    state.player->Update(deltaTime, state.player, state.objects, OBJECT_COUNT,state.enemies,ENEMY_COUNT);
+    state.objects[0].Update(deltaTime, state.player, state.objects, OBJECT_COUNT, state.enemies,ENEMY_COUNT);
+    for (int i = 0; i< ENEMY_COUNT; i++){
+        state.enemies[i].Update(deltaTime, state.player, state.objects, OBJECT_COUNT, state.enemies,ENEMY_COUNT);
     }
-
+    
     for (int i = 0; i<state.bullets.size(); i++){
-        state.bullets[i]->Update(deltaTime, state.player, state.objects, Level2_OBJECT_COUNT, state.enemies,LEVEL2_ENEMY_COUNT);
+        state.bullets[i]->Update(deltaTime, state.player, state.objects, OBJECT_COUNT, state.enemies,ENEMY_COUNT);
     }
 
     
@@ -79,13 +85,13 @@ void Level2::Update(float deltaTime) {
 
 
 
-void Level2::Render(ShaderProgram *program) {
+void TutorialLevel::Render(ShaderProgram *program) {
     state.objects[0].Render(program);
-    for (int i = 0; i<LEVEL2_ENEMY_COUNT; i++){
+    for (int i = 0; i<ENEMY_COUNT; i++){
         state.enemies[i].Render(program);
     }
     for (int i = 0; i<state.bullets.size(); i++){
         state.bullets[i]->Render(program);
     }
-
 }
+

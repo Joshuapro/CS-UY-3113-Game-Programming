@@ -19,19 +19,23 @@
 #include "Level1.h"
 #include "Level2.h"
 #include "MenuScreen.h"
+#include "TutorialLevel.h"
 
 
 
 SDL_Window* displayWindow;
 bool gameIsRunning = true;
-
+bool playerStart = false;
+bool gameFinish = false;
+bool lose = false;
 ShaderProgram program;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
 
-Scene *sceneList[3];
+Scene *sceneList[4];
 
-
-
+glm::mat4 uiViewMatrix, uiProjectionMatrix;
+GLuint fontTextureID;
+GLuint heartTextureID;
 //struct GameState {
 //    Entity *player;
 //    Entity *objects;
@@ -64,13 +68,21 @@ void Initialize() {
     modelMatrix = glm::mat4(1.0f);
     projectionMatrix = glm::perspective(glm::radians(45.0f), 1.777f, 0.1f, 100.0f);
     
+    
+    
+    uiViewMatrix = glm::mat4(1.0);
+    uiProjectionMatrix = glm::ortho(-6.4f, 6.4f, -3.6f, 3.6f, -1.0f, 1.0f);
+    
+    fontTextureID = Util::LoadTexture("font1.png");
+    heartTextureID = Util::LoadTexture("platformPack_item017.png");
+    
     program.SetProjectionMatrix(projectionMatrix);
     program.SetViewMatrix(viewMatrix);
     program.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
     
     glUseProgram(program.programID);
     
-    glClearColor(0.4f, 0.2f, 0.2f, 1.0f);
+    glClearColor(0, 0, 0, 1.0f);
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -81,8 +93,10 @@ void Initialize() {
 
     
     sceneList[0] = new MenuScreen();
-    sceneList[1] = new Level1();
-    sceneList[2] = new Level2();
+    sceneList[1] = new TutorialLevel();
+    sceneList[2] = new Level1();
+    sceneList[3] = new Level2();
+    
     SwitchToScene(sceneList[0]);
     
 }
@@ -98,40 +112,49 @@ void ProcessInput() {
                 
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym) {
+                    case SDLK_RETURN:
+                        if (not playerStart){
+                            SwitchToScene(sceneList[1]);
+                            playerStart = true;
+                        }
+                        break;
                     case SDLK_SPACE:
                         // Some sort of action
-                        GLuint enemytextureID = Util::LoadTexture("ctg.png");
+                        GLuint enemytextureID = Util::LoadTexture("heart.png");
                         Entity *bullet = new Entity;
                         bullet->entityType = BULLET;
                         bullet->textureID = enemytextureID;
                         bullet->position = currentScene->state.player->position;
-                        bullet->scale = glm::vec3(0.5,0.5,0.5);
+                        bullet->scale = glm::vec3(0.2,0.2,0.2);
                         bullet->billboard = true;
                         bullet->velocity.z = cos(glm::radians(currentScene->state.player->rotation.y)) * -10.0f;
                         bullet->velocity.x = sin(glm::radians(currentScene->state.player->rotation.y)) * -10.0f;
                         currentScene->state.bullets.push_back(bullet);
                         break;
+
                 }
                 break;
         }
     }
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
     
-    if (keys[SDL_SCANCODE_A]) {
-        currentScene->state.player->rotation.y += 1.0f;
-    } else if (keys[SDL_SCANCODE_D]) {
-        currentScene->state.player->rotation.y -= 1.0f;
-    }
-    
-    currentScene->state.player->velocity.x = 0;
-    currentScene->state.player->velocity.z = 0;
-    
-    if (keys[SDL_SCANCODE_W]) {
-        currentScene->state.player->velocity.z = cos(glm::radians(currentScene->state.player->rotation.y)) * -2.0f;
-        currentScene->state.player->velocity.x = sin(glm::radians(currentScene->state.player->rotation.y)) * -2.0f;
-    } else if (keys[SDL_SCANCODE_S]) {
-        currentScene->state.player->velocity.z = cos(glm::radians(currentScene->state.player->rotation.y)) * 2.0f;
-        currentScene->state.player->velocity.x = sin(glm::radians(currentScene->state.player->rotation.y)) * 2.0f;
+    if (not gameFinish){
+        if (keys[SDL_SCANCODE_A]) {
+            currentScene->state.player->rotation.y += 1.3f;
+        } else if (keys[SDL_SCANCODE_D]) {
+            currentScene->state.player->rotation.y -= 1.3f;
+        }
+        
+        currentScene->state.player->velocity.x = 0;
+        currentScene->state.player->velocity.z = 0;
+        
+        if (keys[SDL_SCANCODE_W]) {
+            currentScene->state.player->velocity.z = cos(glm::radians(currentScene->state.player->rotation.y)) * -currentScene->state.player->speed;
+            currentScene->state.player->velocity.x = sin(glm::radians(currentScene->state.player->rotation.y)) * (-currentScene->state.player->speed);
+        } else if (keys[SDL_SCANCODE_S]) {
+            currentScene->state.player->velocity.z = cos(glm::radians(currentScene->state.player->rotation.y)) * currentScene->state.player->speed;
+            currentScene->state.player->velocity.x = sin(glm::radians(currentScene->state.player->rotation.y)) * currentScene->state.player->speed;
+        }
     }
     
 }
@@ -156,8 +179,24 @@ void Update() {
         
         deltaTime -= FIXED_TIMESTEP;
     }
-    if (currentScene->state.player->enemiesKilled == 10){
-        SwitchToScene(sceneList[1]);
+    if(not gameFinish){
+        if (currentScene == sceneList[1] and currentScene->state.player->enemiesKilled == 10 and currentScene->state.player->lives){
+            SwitchToScene(sceneList[2]);
+        }
+        if (currentScene == sceneList[2] and currentScene->state.player->enemiesKilled == 50 and currentScene->state.player->lives){
+            SwitchToScene(sceneList[3]);
+        }
+        
+        if (currentScene == sceneList[3] and currentScene->state.player->enemiesKilled == 30 and currentScene->state.player->lives){
+            gameFinish = true;
+        }
+    }
+    
+    
+    
+    if (not currentScene->state.player->lives and currentScene != sceneList[0]){
+        lose = true;
+        gameFinish = true;
     }
     
     accumulator = deltaTime;
@@ -165,7 +204,7 @@ void Update() {
     viewMatrix = glm::mat4(1.0f);
     viewMatrix = glm::rotate(viewMatrix,glm::radians(currentScene->state.player->rotation.y), glm::vec3(0, -1.0f, 0));
     viewMatrix = glm::translate(viewMatrix, -currentScene->state.player->position);
-    // Top of Render()
+    
     program.SetViewMatrix(viewMatrix);
 }
 
@@ -173,9 +212,36 @@ void Update() {
 void Render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
+    program.SetProjectionMatrix(projectionMatrix);
     program.SetViewMatrix(viewMatrix);
     
     currentScene->Render(&program);
+    
+    
+    program.SetProjectionMatrix(uiProjectionMatrix);
+    program.SetViewMatrix(uiViewMatrix);
+    
+    
+    if (not playerStart){
+        Util::DrawText(&program, fontTextureID, "The Killer", 0.5, 0.005, glm::vec3(-2,1,0));
+        Util::DrawText(&program, fontTextureID, "Press Enter to start and space to shoot", 0.5, -0.3f, glm::vec3(-3.5, -1 , 0));
+    }
+    
+    if (playerStart){
+        Util::DrawText(&program, fontTextureID, "Lives: ", 0.5, -0.3f, glm::vec3(-6, 3.2, 0));
+        for (int i = 0; i < currentScene->state.player->lives; i++){
+            Util::DrawIcon(&program, heartTextureID, glm::vec3(-4.5 + (i * 0.5f), 3.2, 0));
+        }
+    }
+    
+    if (gameFinish){
+        if (lose){
+            Util::DrawText(&program, fontTextureID, "You have LOST!", 0.5, -0.3f, glm::vec3(-1, 0 , 0));
+        }
+        else{
+            Util::DrawText(&program, fontTextureID, "Congrats! You have won!", 0.5, -0.3f, glm::vec3(-2, 0 , 0));
+        }
+    }
     
     SDL_GL_SwapWindow(displayWindow);
 }

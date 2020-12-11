@@ -10,6 +10,12 @@
 		992CA1592578A31C00992E09 /* crate1_diffuse.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 992CA1582578A30E00992E09 /* crate1_diffuse.png */; };
 		99A75E5B2584011300ADC551 /* MenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99A75E592584011300ADC551 /* MenuScreen.cpp */; };
 		99A75E5F2584050200ADC551 /* font1.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99A75E5E258404EB00ADC551 /* font1.png */; };
+		99A75E632584144600ADC551 /* TutorialLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99A75E612584144600ADC551 /* TutorialLevel.cpp */; };
+		99A75E6825842F0500ADC551 /* platformPack_item017.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99A75E6725842F0000ADC551 /* platformPack_item017.png */; };
+		99A75E6B258431FA00ADC551 /* ground.JPG in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99A75E6A258431EA00ADC551 /* ground.JPG */; };
+		99A75E70258434D200ADC551 /* blue.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99A75E6E2584348B00ADC551 /* blue.png */; };
+		99A75E73258439E000ADC551 /* keiko.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99A75E72258439DA00ADC551 /* keiko.png */; };
+		99A75E7A25843B9100ADC551 /* heart.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99A75E7925843B8B00ADC551 /* heart.png */; };
 		99AC0551257F2DED0071B807 /* cube.obj in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99AC053E257F2DA50071B807 /* cube.obj */; };
 		99AC0554257F462A0071B807 /* floor.JPG in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99AC0553257F46160071B807 /* floor.JPG */; };
 		99AC0557257F59FF0071B807 /* ctg.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 99AC0556257F59FA0071B807 /* ctg.png */; };
@@ -38,10 +44,15 @@
 			dstSubfolderSpec = 6;
 			files = (
 				DBDF1B612323DE9E007CECB1 /* shaders in CopyFiles */,
+				99A75E7A25843B9100ADC551 /* heart.png in CopyFiles */,
+				99A75E6B258431FA00ADC551 /* ground.JPG in CopyFiles */,
 				99AC0551257F2DED0071B807 /* cube.obj in CopyFiles */,
+				99A75E73258439E000ADC551 /* keiko.png in CopyFiles */,
 				99AC0557257F59FF0071B807 /* ctg.png in CopyFiles */,
+				99A75E70258434D200ADC551 /* blue.png in CopyFiles */,
 				99AC055E258010D90071B807 /* grass.JPG in CopyFiles */,
 				99AC0554257F462A0071B807 /* floor.JPG in CopyFiles */,
+				99A75E6825842F0500ADC551 /* platformPack_item017.png in CopyFiles */,
 				99A75E5F2584050200ADC551 /* font1.png in CopyFiles */,
 				992CA1592578A31C00992E09 /* crate1_diffuse.png in CopyFiles */,
 			);
@@ -54,6 +65,14 @@
 		99A75E592584011300ADC551 /* MenuScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScreen.cpp; sourceTree = "<group>"; };
 		99A75E5A2584011300ADC551 /* MenuScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
 		99A75E5E258404EB00ADC551 /* font1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font1.png; sourceTree = "<group>"; };
+		99A75E612584144600ADC551 /* TutorialLevel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TutorialLevel.cpp; sourceTree = "<group>"; };
+		99A75E622584144600ADC551 /* TutorialLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TutorialLevel.h; sourceTree = "<group>"; };
+		99A75E6725842F0000ADC551 /* platformPack_item017.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platformPack_item017.png; sourceTree = "<group>"; };
+		99A75E6A258431EA00ADC551 /* ground.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ground.JPG; sourceTree = "<group>"; };
+		99A75E6D2584348200ADC551 /* background_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_green.png; sourceTree = "<group>"; };
+		99A75E6E2584348B00ADC551 /* blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blue.png; sourceTree = "<group>"; };
+		99A75E72258439DA00ADC551 /* keiko.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keiko.png; sourceTree = "<group>"; };
+		99A75E7925843B8B00ADC551 /* heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heart.png; sourceTree = "<group>"; };
 		99AC053E257F2DA50071B807 /* cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
 		99AC0553257F46160071B807 /* floor.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = floor.JPG; sourceTree = "<group>"; };
 		99AC0556257F59FA0071B807 /* ctg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ctg.png; sourceTree = "<group>"; };
@@ -128,18 +147,26 @@
 				DBDF1B5A2323DE8D007CECB1 /* stb_image.h */,
 				DBDF1B522323DE3F007CECB1 /* main.cpp */,
 				992CA1582578A30E00992E09 /* crate1_diffuse.png */,
+				99A75E6725842F0000ADC551 /* platformPack_item017.png */,
+				99A75E7925843B8B00ADC551 /* heart.png */,
+				99A75E6A258431EA00ADC551 /* ground.JPG */,
 				DB4C61F9236CE8FD0096309D /* Entity.cpp */,
+				99A75E72258439DA00ADC551 /* keiko.png */,
 				DB4C61FA236CE8FD0096309D /* Entity.h */,
 				99AC0553257F46160071B807 /* floor.JPG */,
+				99A75E6D2584348200ADC551 /* background_green.png */,
+				99A75E6E2584348B00ADC551 /* blue.png */,
 				99A75E5E258404EB00ADC551 /* font1.png */,
 				DB1BA2932378E51A001F1FBC /* Mesh.cpp */,
 				DB1BA2942378E51A001F1FBC /* Mesh.h */,
+				99AC056B25807CBE0071B807 /* Level2.h */,
 				DB1BA2962378E7A5001F1FBC /* Util.cpp */,
 				99AC056A25807CBE0071B807 /* Level2.cpp */,
-				99AC056B25807CBE0071B807 /* Level2.h */,
 				DB1BA2972378E7A5001F1FBC /* Util.h */,
 				99AC0561258018170071B807 /* Level1.cpp */,
 				99AC0562258018170071B807 /* Level1.h */,
+				99A75E612584144600ADC551 /* TutorialLevel.cpp */,
+				99A75E622584144600ADC551 /* TutorialLevel.h */,
 				99AC05652580183E0071B807 /* Scene.cpp */,
 				99AC05662580183E0071B807 /* Scene.h */,
 				99AC053E257F2DA50071B807 /* cube.obj */,
@@ -224,6 +251,7 @@
 				DB4C61FB236CE8FD0096309D /* Entity.cpp in Sources */,
 				99AC0563258018170071B807 /* Level1.cpp in Sources */,
 				DB1BA2952378E51A001F1FBC /* Mesh.cpp in Sources */,
+				99A75E632584144600ADC551 /* TutorialLevel.cpp in Sources */,
 				99AC056C25807CBF0071B807 /* Level2.cpp in Sources */,
 				DBDF1B5E2323DE8D007CECB1 /* ShaderProgram.cpp in Sources */,
 				DB1BA2982378E7A5001F1FBC /* Util.cpp in Sources */,
