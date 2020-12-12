@@ -103,7 +103,7 @@ void Initialize() {
     SwitchToScene(sceneList[0]);
     
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
-    music = Mix_LoadMUS("guccigang.mp3");
+    music = Mix_LoadMUS("NikesOnMyFeet.mp3");
     Mix_PlayMusic(music, -1);
     
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
@@ -205,7 +205,7 @@ void Update() {
     
     
     
-    if (not currentScene->state.player->lives and currentScene != sceneList[0]){
+    if (currentScene->state.player->lives <=0 and currentScene != sceneList[0]){
         lose = true;
         gameFinish = true;
     }
