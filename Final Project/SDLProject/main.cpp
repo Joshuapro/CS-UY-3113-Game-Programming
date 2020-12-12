@@ -31,6 +31,9 @@ bool lose = false;
 ShaderProgram program;
 glm::mat4 viewMatrix, modelMatrix, projectionMatrix;
 
+Mix_Music* music;
+Mix_Chunk* music_shooting;
+
 Scene *sceneList[4];
 
 glm::mat4 uiViewMatrix, uiProjectionMatrix;
@@ -51,7 +54,7 @@ void SwitchToScene(Scene *scene) {
 GameState state;
 
 void Initialize() {
-    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
     displayWindow = SDL_CreateWindow("3D!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_OPENGL);
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
@@ -99,6 +102,13 @@ void Initialize() {
     
     SwitchToScene(sceneList[0]);
     
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    music = Mix_LoadMUS("guccigang.mp3");
+    Mix_PlayMusic(music, -1);
+    
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
+    music_shooting = Mix_LoadWAV("shooting.wav");
+    
 }
 
 void ProcessInput() {
@@ -130,6 +140,7 @@ void ProcessInput() {
                         bullet->velocity.z = cos(glm::radians(currentScene->state.player->rotation.y)) * -10.0f;
                         bullet->velocity.x = sin(glm::radians(currentScene->state.player->rotation.y)) * -10.0f;
                         currentScene->state.bullets.push_back(bullet);
+                        Mix_PlayChannel(-1, music_shooting, 0);
                         break;
 
                 }
